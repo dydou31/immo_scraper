@@ -1,10 +1,11 @@
+import subprocess
+import json
 from fastapi import FastAPI
-import asyncio
-from scraper import scrape
 
 app = FastAPI()
 
 @app.get("/terrains")
 async def get_terrains():
-    data = await scrape()
+    result = subprocess.check_output(["node", "scraper.js"])
+    data = json.loads(result)
     return data
