@@ -5,7 +5,11 @@ URL = "https://m.leboncoin.fr/recherche?category=9&real_estate_type=1&regions=13
 
 async def scrape():
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(
+            headless=True,
+            executable_path="/opt/render/.cache/ms-playwright/chromium-1228/chrome-linux/chrome"
+        )
+
         page = await browser.new_page()
 
         await page.goto(URL, timeout=60000)
@@ -49,4 +53,3 @@ async def scrape():
                 })
 
         return results
-
